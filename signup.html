@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
+  <!-- Add other CDNs here if needed -->
+
+  <title>Registration Form</title>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="bg-white w-96 p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Sign Up</h1>
+
+    <!-- Registration form fields -->
+    <form>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+        <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <button type="submit" id="submit-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full">Sign Up</button>
+
+      <div class="mt-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2 text-center">OR Sign up with:</label>
+        <div class="flex justify-center space-x-4">
+          <!-- Sign up with Google -->
+          <a href="#" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg flex items-center space-x-2">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </a>
+          <!-- Sign up with Facebook -->
+          <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded-lg flex items-center space-x-2">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+          </a>
+
+          <!-- Sign up with GitHub -->
+          <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg flex items-center space-x-2">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <a href="#" class="text-blue-500 hover:text-blue-600 text-sm">Already have an account?</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- JavaScript for form validation using Toastify -->
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script>
+    // Function to show Toastify notification
+    function showToast(message, type) {
+      Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: type === "success" ? "green" : "red",
+        stopOnFocus: true,
+      }).showToast();
+    }
+
+    // Function to validate the form
+    function validateForm(event) {
+      event.preventDefault();
+
+      // Get form values
+      const fullName = document.getElementById('full-name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      // Validate full name
+      if (fullName.trim() === '') {
+        showToast('Please enter your full name.', 'error');
+        return;
+      }
+
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      // Validate password
+      if (password.length < 8) {
+        showToast('Password must be at least 8 characters long.', 'error');
+        return;
+      }
+
+      // Validate confirm password
+      if (password !== confirmPassword) {
+        showToast('Passwords do not match.', 'error');
+        return;
+      }
+
+      // If all validations pass, you can submit the form here
+      showToast('Registration successful!', 'success');
+      // For example, you can uncomment the following line to submit the form:
+      // document.getElementById('registration-form').submit();
+    }
+
+    // Add event listener to the submit button
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', validateForm);
+  </script>
+</body>
+</html>

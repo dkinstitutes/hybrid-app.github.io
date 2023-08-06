@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
+  <!-- Add other CDNs here if needed -->
+
+  <title>Login Form</title>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="w-96 p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Log In</h1>
+
+    <!-- Login form fields -->
+    <form>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+        <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-gray-700" required>
+      </div>
+
+      <button type="submit" id="submit-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full">Log In</button>
+
+      <div class="mt-4 text-center">
+        <a href="#" class="text-blue-500 hover:text-blue-600 text-sm">Forgot password?</a>
+      </div>
+
+      <div class="mt-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2 text-center">OR Log in with:</label>
+        <div class="flex justify-center space-x-4">
+          <!-- Log in with Google -->
+          <a href="#" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg flex items-center space-x-2">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </a>
+
+          <!-- Log in with GitHub -->
+          <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg flex items-center space-x-2">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- JavaScript for form validation using Toastify -->
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script>
+    // Function to show Toastify notification
+    function showToast(message, type) {
+      Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: type === "success" ? "green" : "red",
+        stopOnFocus: true,
+      }).showToast();
+    }
+
+    // Function to validate the form
+    function validateForm(event) {
+      event.preventDefault();
+
+      // Get form values
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      // Validate password
+      if (password.length < 8) {
+        showToast('Password must be at least 8 characters long.', 'error');
+        return;
+      }
+
+      // If all validations pass, you can log in here
+      showToast('Logged in successfully!', 'success');
+      // For example, you can redirect the user to a dashboard page:
+      // window.location.href = '/dashboard';
+    }
+
+    // Add event listener to the submit button
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', validateForm);
+  </script>
+</body>
+</html>
